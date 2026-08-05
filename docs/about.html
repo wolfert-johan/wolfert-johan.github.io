@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>About</title>
+	<style>
+		body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:2rem;color:#111}
+		.container{max-width:900px}
+		/* site header */
+		.site-header{margin:0 0 1rem 0}
+		.site-title{font-weight:700;font-size:1.25rem}
+		.site-title a{text-decoration:none;color:#7e3277}
+		header h1{margin:0 0 1rem;font-size:1.75rem}
+		label{display:block;margin:0 0 .5rem;font-weight:600}
+		.textbox{display:block;width:100%;max-width:800px;padding:.5rem;border:1px solid #ccc;border-radius:0;box-sizing:border-box;font-size:1rem}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header class="site-header"><a class="site-title" href="index.html">Home</a></header>
+		<header>
+			<h1>About</h1>
+		</header>
+
+		<div id="about-text" class="textbox" aria-live="polite">
+			<div>Name: <span id="name">Wolfert J. O'Neil</span></div>
+			<div>Birthday: <span id="birthday">10/16/2008</span></div>
+			<div>Age: <span id="age">—</span></div>
+			<div>Location: <span id="location">Cambridge, MA (as of 8/5/26)</span></div>
+            <p></p>
+            <div>I'm going to Columbia University in the fall of 2026.</div>
+            <div>If I had to use 3 adjectives to describe myself, they would be: intelligent, funny, and freaky.</div>
+            <p></p>
+            <div>Wolfie facts:</div>
+            <ul>
+                <li>Wolfie is a big fan of the color purple.</li>
+				<li>Wolfie lost a lot of weight throughout 2025 and 2026. Now he MOGs.</li>
+				<li>Drunk Wolfie is different from normal Wolfie. If drunk Wolfie likes you a lot, that can change by morning!</li>
+				<li>Wolfie's eyes are grey? What do you think?</li>
+                <li>Wolfie is a big flirt, so watch out! He talks to multiple women at once. If you want him to stop, tell him.</li>
+				<li>Wolfie lies politely to strangers to avoid talking to them, sorry!</li>
+				<li>Wolfie has a tell, where he raises the left side of his mouth and his left eyebrow when he's nervous, lying, or flirting</li>
+				<li>Wolfie seriously bites his lips, sometimes it means something and sometimes it does not.</li>
+            </ul>
+            <p></p>
+            <div>Wolfie tips (to get him to like you):</div>
+            <ul>
+                <li>Compliment him</li>
+                <li>let him brag or tell you something interesting</li>
+                <li>look him in the eyes with intent</li>
+				<li>touch him on the hands and shoulder</li>
+				<li>Listen to what he is saying</li>
+				<li>Listen to what he says</li>
+				<li>be interesting, deep, and funny</li>
+				<li>Don't lie. He can tell when you are lying</li>
+				<li>Say goodbye when you're leaving and hello when you're meeting</li>
+            </ul>
+            <p></p>
+            <div>Wolfie tips (if you're a freak):</div>
+            <ul>
+                <li>do all the stuff in the list above</li>
+                <li>compliment his eyelashes</li>
+                <li>bite your lips and look into his eyes</li>
+				<li>make a risque joke</li>
+				<li>make a safeword</li>
+				<li>get close to him</li>
+				<li>complain about ur bra or your boobs</li>
+				<li>Feel free to be obvious about shit, but don't break boundaries!</li>
+				<li>Men can try, but good luck.</li>
+            </ul>
+			<p></p>
+			<div>Hey, I hope you don't think less of me after reading all that. You didn't really have to read it, though</div>
+		</div>
+
+		<script>
+		(function(){
+			function parseMDY(s){
+				const m = s.trim().split('/').map(Number);
+				if(m.length!==3 || m.some(isNaN)) return null;
+				return new Date(m[2], m[0]-1, m[1]);
+			}
+			function ageFromDob(dob){
+				if(!dob) return null;
+				const today = new Date();
+				let age = today.getFullYear() - dob.getFullYear();
+				const m = today.getMonth() - dob.getMonth();
+				if(m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+				return age;
+			}
+			const bEl = document.getElementById('birthday');
+			const aEl = document.getElementById('age');
+			function updateAge(){
+				const dob = parseMDY(bEl.textContent || bEl.innerText || '');
+				const age = ageFromDob(dob);
+				aEl.textContent = (age === null || isNaN(age)) ? 'Unknown' : String(age);
+			}
+			// initial
+			updateAge();
+			// optional: update at midnight in case page stays open across days
+			const now = new Date();
+			const msUntilMidnight = (new Date(now.getFullYear(), now.getMonth(), now.getDate()+1) - now) + 50;
+			setTimeout(function(){ updateAge(); setInterval(updateAge, 24*60*60*1000); }, msUntilMidnight);
+		})();
+		</script>
+	</div>
+</body>
+</html>
+
